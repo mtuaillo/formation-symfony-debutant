@@ -1,0 +1,13 @@
+{% extends '/base.html.twig' %}
+
+{% block title %}Articles list{% endblock %}
+
+{% block body %}
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.content) }}
+        {{ form_row(form.tags) }}
+
+        <input type="submit" value="Save"/>
+    {{ form_end(form) }}
+{% endblock %}
