@@ -16,4 +16,3 @@ class Exporter5
         return $this->logger;
     }
 }
-

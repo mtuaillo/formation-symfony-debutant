@@ -13,7 +13,7 @@ class ArticleEditVoter extends Voter
 
     protected function supports(string $attribute, mixed $subject): bool
     {
-        return $attribute === self::EDIT
+        return self::EDIT === $attribute
             && $subject instanceof Article;
     }
 

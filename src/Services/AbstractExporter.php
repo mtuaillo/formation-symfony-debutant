@@ -9,7 +9,7 @@ abstract class AbstractExporter
 {
     protected LoggerInterface $logger;
 
-  	public function getLogger(): LoggerInterface
+    public function getLogger(): LoggerInterface
     {
         return $this->logger;
     }

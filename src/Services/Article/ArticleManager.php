@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Article;
 
 use App\Entity\Article;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 
 class ArticleManager
 {
@@ -12,8 +14,15 @@ class ArticleManager
     ) {
     }
 
-    public function create(Article $article): Article
+    public function create(Article $article, User $user): Article
     {
+        $article->setAuthor($user);
+
+        $slugger = new AsciiSlugger();
+        $article->setSlug(
+            $slugger->slug($article->getTitle())
+        );
+
         $this->entityManager->persist($article);
         $this->entityManager->flush();
 

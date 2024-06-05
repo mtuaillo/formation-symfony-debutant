@@ -7,7 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TagRepository::class)]
 #[ORM\UniqueConstraint(columns: ['name'])]
-class Tag implements \Stringable {
+class Tag implements \Stringable
+{
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
