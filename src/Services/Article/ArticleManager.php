@@ -10,7 +10,7 @@ use Symfony\Component\String\Slugger\AsciiSlugger;
 class ArticleManager
 {
     public function __construct(
-        private EntityManagerInterface $entityManager,
+        private readonly EntityManagerInterface $entityManager,
     ) {
     }
 
@@ -20,7 +20,7 @@ class ArticleManager
 
         $slugger = new AsciiSlugger();
         $article->setSlug(
-            $slugger->slug($article->getTitle())
+            $slugger->slug(strtolower($article->getTitle()))
         );
 
         $this->entityManager->persist($article);
@@ -31,9 +31,15 @@ class ArticleManager
 
     public function edit(Article $article): Article
     {
-        // TODO: mettre à jour le slug
+        $slugger = new AsciiSlugger();
+        $article->setSlug(
+            $slugger->slug(strtolower($article->getTitle()))
+        );
+
         // TODO: mettre à jour la dernière date d'édition
 
         $this->entityManager->flush();
+
+        return $article;
     }
 }

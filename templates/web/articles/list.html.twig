@@ -7,22 +7,18 @@
 {% endblock %}
 
 {% block body %}
-    <table>
-        <thead>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Tags</th>
-            <th></th>
-        </thead>
-        <tbody>
+        <table>
         {% for article in articles  %}
             <tr>
                 <td>{{ article.id }}</td>
-                <td>{{ article.title }}</td>
+                <td>
+                    <a href="{{ path('articles_show', { id: article.id }) }}">
+                        {{ article.title }}
+                    </a>
+                </td>
                 <td>{{ article.tags|join(',') }}</td>
                 <td></td>
             </tr>
         {% endfor %}
-        </tbody>
-    </table>
+        </table>
 {% endblock %}

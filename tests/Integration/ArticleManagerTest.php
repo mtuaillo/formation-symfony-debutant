@@ -9,11 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class ArticleManagerTest extends KernelTestCase
 {
-    public function testSomething(): void
+    public function testSCreate(): void
     {
-        // Arrange
-        $kernel = self::bootKernel();
-
         $articleManager = static::getContainer()->get(ArticleManager::class);
         $userRepository = static::getContainer()->get(UserRepository::class);
 

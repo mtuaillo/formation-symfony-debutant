@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Controller\Articles;
+namespace App\Controller\Web\Articles;
 
+use App\Entity\Article;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -9,9 +10,9 @@ use Symfony\Component\Routing\Attribute\Route;
 class ShowController extends AbstractController
 {
     #[Route('/articles/show/{id}', name: 'articles_show')]
-    public function index(Article $article): Response
+    public function show(Article $article): Response
     {
-        return $this->render('articles/show/index.html.twig', [
+        return $this->render('web/articles/show.html.twig', [
             'article' => $article,
         ]);
     }

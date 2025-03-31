@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Controller\Articles;
+namespace App\Controller\Web\Articles;
 
 use App\Entity\Article;
+use App\Entity\User;
 use App\Form\CreateArticleType;
 use App\Security\Voter\ArticleEditVoter;
 use App\Services\Article\ArticleManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,17 +17,15 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class EditController extends AbstractController
 {
     public function __construct(
-        private EntityManagerInterface $entityManager,
         private ArticleManager $articleManager,
     ) {
     }
 
     #[Route('/articles/edit/{id}', name: 'articles_edit', methods: ['GET', 'POST'])]
     #[IsGranted(ArticleEditVoter::EDIT, 'article')]
-    public function index(
+    public function edit(
         Request $request,
         Article $article,
-        #[CurrentUser] $currentUser
     ): Response {
         $form = $this->createForm(CreateArticleType::class, $article);
 
@@ -35,17 +33,14 @@ class EditController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $article = $form->getData();
 
-            // Envoie les modifications sur toutes les entités en base de données
-            $this->entityManager->flush();
-
-            // $this->articleManager->edit($article, $currentUser);
+            $this->articleManager->edit($article);
 
             return $this->redirectToRoute('articles_list');
         }
 
         dump($form->getErrors());
 
-        return $this->render('articles/create/index.html.twig', [
+        return $this->render('web/articles/edit.html.twig', [
             'form' => $form->createView(),
         ]);
     }

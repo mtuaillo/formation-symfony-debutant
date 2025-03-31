@@ -7,6 +7,8 @@ use App\Entity\User;
 use App\Services\Article\ArticleManager;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\String\Slugger\AsciiSlugger;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ArticleManagerTest extends TestCase
 {
@@ -32,6 +34,6 @@ class ArticleManagerTest extends TestCase
         $articleManager->create($article, new User());
 
         // Assert
-        $this->assertEquals('Article-un', $article->getSlug());
+        $this->assertEquals('article-un', $article->getSlug());
     }
 }
