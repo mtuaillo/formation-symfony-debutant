@@ -1,0 +1,11 @@
+name: formation-symfony-debutant
+
+services:
+  php:
+    build: apache-php
+    volumes:
+      - '../..:/srv/app'
+      - './apache-php/apache.conf:/etc/apache2/sites-enabled/app.conf'
+    ports:
+      - 80:80
+      - 443:443
