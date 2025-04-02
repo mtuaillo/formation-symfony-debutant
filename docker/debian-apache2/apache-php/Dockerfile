@@ -15,7 +15,13 @@ RUN apt-get update -yqq
 RUN apt-get install git -yqq
 
 # Installation PHP
-RUN apt-get install php$PHP_VERSION-fpm php$PHP_VERSION-cli php$PHP_VERSION-dom php$PHP_VERSION-sqlite3 -yqq
+RUN apt-get install -yqq \
+    php$PHP_VERSION-fpm \
+    php$PHP_VERSION-cli \
+    php$PHP_VERSION-dom \
+    php$PHP_VERSION-sqlite3 \
+    php$PHP_VERSION-apcu \
+    php$PHP_VERSION-intl
 
 # Configuration PHP
 RUN mkdir -p $PHP_INI_DIR/conf.d
