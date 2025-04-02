@@ -31,8 +31,14 @@ RUN php -r "unlink('composer-setup.php');"
 RUN apt-get install --no-install-recommends apache2 libapache2-mod-fcgid -yqq
 RUN a2enconf php$PHP_VERSION-fpm
 RUN a2enmod proxy_fcgi
+RUN a2enmod ssl
+RUN a2enmod http2
 RUN a2dissite 000-default
 RUN mkdir /var/log/apache2/app/
+
+# Certificat auto-signé pour HTTPS
+RUN mkdir -p /etc/ssl/private/apache
+RUN openssl req -newkey rsa:2048 -nodes -keyout /etc/ssl/private/apache/localhost.key -x509 -days 365 -out /etc/ssl/private/apache/localhost.crt -subj "/ST=ST/L=L/O=O/OU=OU/CN=CN"
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
