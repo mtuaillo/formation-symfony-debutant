@@ -3,7 +3,6 @@
 namespace App\Controller\Web\Articles;
 
 use App\Entity\Article;
-use App\Entity\User;
 use App\Form\CreateArticleType;
 use App\Security\Voter\ArticleEditVoter;
 use App\Services\Article\ArticleManager;
@@ -11,7 +10,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class EditController extends AbstractController

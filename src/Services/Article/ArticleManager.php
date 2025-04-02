@@ -36,7 +36,7 @@ class ArticleManager
             $slugger->slug(strtolower($article->getTitle()))
         );
 
-        // TODO: mettre à jour la dernière date d'édition
+        $article->setUpdatedAt(new \DateTimeImmutable());
 
         $this->entityManager->flush();
 
