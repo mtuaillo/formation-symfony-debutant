@@ -8,6 +8,7 @@ use Doctrine\Persistence\ObjectManager;
 
 class AppTags extends Fixture
 {
+    public const TAG_PHP = 'tag-php';
     public function load(ObjectManager $manager): void
     {
         $tag1 = new Tag();
@@ -27,5 +28,7 @@ class AppTags extends Fixture
         $manager->persist($tag4);
 
         $manager->flush();
+
+        $this->addReference(self::TAG_PHP, $tag1);
     }
 }
