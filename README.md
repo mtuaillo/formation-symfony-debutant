@@ -21,8 +21,8 @@ Concepts vus:
  - 4 - Sécurité & autorisation 
    - stocker les utilisateurs en base de données
    - créer un formulaire de connexion
-   - contrôler l'accès aux pages web
-   - contrôler l'accès à des actions
+   - contrôler l'accès à des urls
+   - contrôler l'accès à des actions dans
  - 5 - Services 
    - comprendre l'injection de dépendances  
  - 6 - Frontend
@@ -41,7 +41,17 @@ Concepts vus:
    - configurer le serveur de production
    - déployer
 
+## Architecture
+- https://fr.slideshare.net/slideshow/design-applicatif-avec-symfony-zoom-sur-la-clean-architecture-symfony-live/94524977
+
+## Veille
+
+- https://symfony.com/blog/
+- https://digest.club/jolicode
+- https://afup.org/home
 
 ## Liens
 
+- https://packagist.org/
 - https://endoflife.date/php
+- https://testing-tips.sarvendev.com

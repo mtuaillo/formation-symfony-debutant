@@ -25,6 +25,12 @@ class EditController extends AbstractController
         Request $request,
         Article $article,
     ): Response {
+        $this->denyAccessUnlessGranted(ArticleEditVoter::EDIT, $article);
+
+        if ($this->isGranted(ArticleEditVoter::EDIT, $article)) {
+            // ...
+        }
+
         $form = $this->createForm(CreateArticleType::class, $article);
 
         $form->handleRequest($request);

@@ -19,7 +19,6 @@ class Article
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank]
     #[Assert\Length(
         min: 5,
         max: 255,

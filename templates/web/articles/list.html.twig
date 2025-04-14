@@ -4,10 +4,14 @@
 
 {% block javascripts %}
     <script src="{{ asset('js/articles.js') }}"></script>
+
+    {% block importmap %}
+        {{ importmap('app') }}
+    {% endblock %}
 {% endblock %}
 
 {% block body %}
-        <table>
+        <table class="table">
         {% for article in articles  %}
             <tr>
                 <td>{{ article.id }}</td>

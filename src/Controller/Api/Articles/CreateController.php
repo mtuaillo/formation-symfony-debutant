@@ -28,7 +28,7 @@ class CreateController extends AbstractController
      * --request POST \
      * --cookie "PHPSESSID=2ucknn7xot305au282" \
      * --header "Content-Type: application/json" \
-     * --data '{"content": "contenu", "title": "titre"}'.
+     * --data '{"content": "contenu", "title": "titre"}'
      */
     #[Route('/api/articles/create', name: 'api_articles_create', methods: ['POST'])]
     public function create(
@@ -43,7 +43,7 @@ class CreateController extends AbstractController
 
         $constraintViolationList = $this->validator->validate($article);
         if (count($constraintViolationList) > 0) {
-            return new JsonResponse(null, Response::HTTP_UNPROCESSABLE_ENTITY);
+            return new JsonResponse($constraintViolationList, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         $this->articleManager->create($article, $currentUser);
