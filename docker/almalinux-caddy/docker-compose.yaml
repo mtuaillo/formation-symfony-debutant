@@ -1,11 +1,12 @@
 name: formation-symfony-debutant
 
 services:
-  apache-php:
-    build: apache-php
+  caddy-php:
+    build: caddy-php
     volumes:
       - '../..:/srv/app'
-      - './apache-php/apache.conf:/etc/apache2/sites-enabled/app.conf'
+      - './caddy-php/Caddyfile:/etc/caddy/Caddyfile'
     ports:
       - 80:80
       - 443:443
+      - 2019:2019

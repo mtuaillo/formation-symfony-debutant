@@ -46,6 +46,9 @@ RUN mkdir /var/log/apache2/app/
 RUN mkdir -p /etc/ssl/private/apache
 RUN openssl req -newkey rsa:2048 -nodes -keyout /etc/ssl/private/apache/localhost.key -x509 -days 365 -out /etc/ssl/private/apache/localhost.crt -subj "/ST=ST/L=L/O=O/OU=OU/CN=CN"
 
+# Nettoyage
+RUN rm -rf /var/lib/apt/lists/*
+
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
