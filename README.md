@@ -55,3 +55,5 @@ Concepts vus:
 - https://packagist.org/
 - https://endoflife.date/php
 - https://testing-tips.sarvendev.com
+
+[![App tests & artifact](https://github.com/mtuaillo/formation-symfony-debutant/actions/workflows/php.yml/badge.svg)](https://github.com/mtuaillo/formation-symfony-debutant/actions/workflows/php.yml)

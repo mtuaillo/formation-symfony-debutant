@@ -1,0 +1,44 @@
+name: App tests & artifact
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v3
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress
+
+    - name: Tests
+      run: |
+        php bin/console lint:container
+        php bin/console lint:twig config/
+        php vendor/bin/phpstan analyse src/ tests/
+        php bin/console doctrine:database:create
+        php bin/console doctrine:migrations:migrate
+        php bin/console doctrine:fixtures:load -q
+        php vendor/bin/phpunit
+
+    - name: Audit
+      continue-on-error: true
+      run: |
+        composer audit

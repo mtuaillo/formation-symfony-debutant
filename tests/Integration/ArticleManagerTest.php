@@ -15,7 +15,7 @@ class ArticleManagerTest extends KernelTestCase
         $articleManager = static::getContainer()->get(ArticleManager::class);
         $userRepository = static::getContainer()->get(UserRepository::class);
 
-        $user = $userRepository->findOneByEmail('test@test.dev');
+        $user = $userRepository->findOneByEmail('test1@test.dev');
 
         // Act
         $article = new Article();

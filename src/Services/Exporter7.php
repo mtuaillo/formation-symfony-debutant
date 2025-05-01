@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use Psr\Log\LoggerInterface;
+
 class Exporter7
 {
     private LoggerInterface $logger;

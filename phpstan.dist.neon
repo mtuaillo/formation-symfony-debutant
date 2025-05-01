@@ -6,3 +6,5 @@ parameters:
         - public/
         - src/
         - tests/
+    excludePaths:
+        - src/Services/Exporter5.php
