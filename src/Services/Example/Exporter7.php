@@ -1,12 +1,17 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Example;
 
 use Psr\Log\LoggerInterface;
 
-trait ExporterTrait
+class Exporter7
 {
     private LoggerInterface $logger;
+
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
 
     public function getLogger(): LoggerInterface
     {

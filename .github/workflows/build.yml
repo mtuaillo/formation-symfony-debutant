@@ -1,0 +1,65 @@
+name: Build Artifact
+
+on:
+  push:
+    tags:
+      - '*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build Artifact
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, intl, pdo_sqlite
+          coverage: none
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Prepare prod file
+        run: |
+          sed -i 's/APP_ENV=dev/APP_ENV=prod/g' .env
+          composer install --no-dev  --prefer-dist --no-progress
+          composer dump-autoload --optimize --classmap-authoritative
+          php bin/console assets:install
+          php bin/console asset-map:compile
+
+      - name: Get tag name
+        id: get_tag
+        run: |
+          echo "TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-${{ steps.get_tag.outputs.TAG }}
+          path: |
+            bin/
+            config/
+            migrations/
+            public/
+            src/
+            templates/
+            translations/
+            vendor/
+            composer.json
+            composer.lock

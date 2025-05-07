@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Services;
-
-use Psr\Log\LoggerInterface;
+namespace App\Services\Example;
 
 class Exporter84
 {
