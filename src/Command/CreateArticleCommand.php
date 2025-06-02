@@ -5,11 +5,9 @@ namespace App\Command;
 use App\Entity\Article;
 use App\Repository\UserRepository;
 use App\Services\Article\ArticleManager;
+use Symfony\Component\Console\Attribute\Argument;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
@@ -19,30 +17,20 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class CreateArticleCommand extends Command
 {
     public function __construct(
-        private ArticleManager $articleManager,
-        private UserRepository $userRepository,
+        private readonly ArticleManager $articleManager,
+        private readonly UserRepository $userRepository,
     ) {
         parent::__construct();
     }
 
-    protected function configure(): void
-    {
-        $this
-            ->addArgument('title', InputArgument::REQUIRED, 'Title, required')
-            ->addArgument('content', InputArgument::REQUIRED, 'Content, required')
-            ->addArgument('email', InputArgument::REQUIRED, 'Author\'s email, required')
-        ;
-    }
-
-    protected function execute(InputInterface $input, OutputInterface $output): int
-    {
-        $io = new SymfonyStyle($input, $output);
-
-        $title = $input->getArgument('title');
-        $content = $input->getArgument('content');
-
+    public function __invoke(
+        SymfonyStyle $io,
+        #[Argument] string $title,
+        #[Argument] string $content,
+        #[Argument] string $email,
+    ): int {
         try {
-            $author = $this->userRepository->findOneBy(['email' => $input->getArgument('email')]);
+            $author = $this->userRepository->findOneBy(['email' => $email]);
 
             $article = new Article();
             $article
